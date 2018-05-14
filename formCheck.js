@@ -1,16 +1,26 @@
 
 let FormCheck = function () {
     this.cache = []
-}
-let rulesObj = {
-    isEmpty (value, errMsg) {
-        if (value == '' || value == void 0) {
-            return errMsg
-        }
-    },
-    isPhone (value, errMsg) {
-        if (!/^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/.test(value)) {
-            return errMsg
+    this.rulesObj = {
+        isEmpty (value, errMsg) {
+            if (value == '' || value == void 0) {
+                return errMsg
+            }
+        },
+        isPhone (value, errMsg) {
+            if (!/^1(3[0-9]|4[57]|5[0-35-9]|7[01678]|8[0-9])\d{8}$/.test(value)) {
+                return errMsg
+            }
+        },
+        maxNumber (value, max, errMsg) {
+            if (value > max) {
+                return errMsg
+            }
+        },
+        minNumber (value, min, errMsg) {
+            if (value < min) {
+                return errMsg
+            }
         }
     }
 }
@@ -23,7 +33,7 @@ FormCheck.prototype.add = function (dom, rules) {
             let _rule = _rules.shift()
             _rules.unshift(dom)
             _rules.push(_errMsg)
-            return rulesObj[_rule].apply(dom, _rules)
+            return that.rulesObj[_rule].apply(dom, _rules)
         })
     })
     return this
@@ -37,14 +47,14 @@ FormCheck.prototype.start = function () {
     }
 }
 FormCheck.prototype.addRule = function (rule, fn) {
-    if (rule in rulesObj) {
+    if (rule in this.rulesObj) {
         console.log('It already has this rule!')
     } else {
-        rulesObj[rule] = fn
+        this.rulesObj[rule] = fn
     }
 }
 FormCheck.prototype.showRules = function () {
-    for (let rule in rulesObj) {
+    for (let rule in this.rulesObj) {
         console.log(rule)
     }
 }
