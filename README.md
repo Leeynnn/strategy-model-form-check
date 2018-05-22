@@ -1,8 +1,8 @@
 # strategy-model-form-check
-This is a fromCheck.js with strategy model.Instances can extend their own policy class.
+## This is a fromCheck.js with strategy model.Instances can extend their own policy class.
 
-For example
-
+### For example
+```javascript
 let formCheck = new FormCheck()
 formCheck.addRule('newrule', (value, errMsg) => {
     if (value === 0) {
@@ -40,3 +40,4 @@ if (errMsg) {
 } else {
   // ...
 }
+```
